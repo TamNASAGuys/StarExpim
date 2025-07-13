@@ -13,7 +13,7 @@ star = Dict(
 		"Xylos": {
 			"mass": 0.148,
 			"type": 'M5.5V'
-		}
+		},
 	},
 	"k": None,
 	"g": None,
@@ -29,7 +29,7 @@ star = Dict(
 		None: {
 			"mass": 20.34,
 			"type": 'O9V'
-		}
+		},
 	},
 }
 )
@@ -132,10 +132,12 @@ class StarDialog(Group):
 							print(f"{parameters}: {value}")
 							detail.add(Text(f"{parameters.capitalize()}",font_size=15).move_to(star_button,DL).shift(0.1*RIGHT+0.3*UP),
 									   Text(f"{value}",font_size=15).move_to(star_button,DR).shift(0.1*LEFT+0.3*UP))
+					if len(info.items()) == 0:
+							detail.add(Text("No Data",font_size=40,fill_opacity=0.4).move_to(star_button,DOWN).shift(0.1*UP))
 					self.star_list.add(Group(star_button,star_text_names,detail))
 				#detail.arrange(DOWN)
 			else:
-				self.add(Text(f"NO STAR AVAILABLE",font_size=65,fill_opacity=0.2).rotate(20*DEG))
+				self.add(Text(f"NO STAR AVAILABLE",font_size=65,fill_opacity=0.4).rotate(20*DEG))
 		else:
 			raise(Exception)
 		self.star_list.arrange(DOWN,center=False,aligned_edge=ORIGIN,buff=0.2)
@@ -160,9 +162,6 @@ class StarDialog(Group):
 		return False
 
 class StarSelection(Scene):
-	def close_window(self):
-		if isinstance(self.mobjects, StarDialog):
-			self.remove(self.mobjects)
 	drag_to_pan = False
 	def construct(self):
 		background = SVGMobject("background.svg",fill_opacity=0.05).scale(4)
