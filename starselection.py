@@ -76,7 +76,7 @@ class Stars(Group):
 			star_glow.scale(0.0046524726)
 		self.add(stars,star_glow)
 
-class StarDialog(Group):
+class StarWindow(Group):
 	def __init__(self,
 				 star: str = None,
 				 **kwargs
@@ -166,19 +166,19 @@ class StarSelection(Scene):
 	def construct(self):
 		background = SVGMobject("background.svg",fill_opacity=0.05).scale(4)
 		background.fix_in_frame()
-		star_o = Button(Stars(radius=0.9).set_color("#5b7cff"),on_click=lambda _: self.add(StarDialog(star="o")))
+		star_o = Button(Stars(radius=0.9).set_color("#5b7cff"),on_click=lambda _: self.add(StarWindow(star="o")))
 		star_o.shift(LEFT*6)
-		star_b = Button(Stars(radius=0.81).set_color("#718fff"),on_click=lambda _: self.add(StarDialog(star="b")))
+		star_b = Button(Stars(radius=0.81).set_color("#718fff"),on_click=lambda _: self.add(StarWindow(star="b")))
 		star_b.shift(LEFT*3.5)
-		star_a = Button(Stars(radius=0.74).set_color("#9ab0ff"),on_click=lambda _: self.add(StarDialog(star="a")))
+		star_a = Button(Stars(radius=0.74).set_color("#9ab0ff"),on_click=lambda _: self.add(StarWindow(star="a")))
 		star_a.shift(LEFT*1.3)
-		star_f = Button(Stars(radius=0.64).set_color("#ebe7ff"),on_click=lambda _: self.add(StarDialog(star="f")))
+		star_f = Button(Stars(radius=0.64).set_color("#ebe7ff"),on_click=lambda _: self.add(StarWindow(star="f")))
 		star_f.shift(RIGHT*0.7)
-		star_g = Button(Stars(radius=0.53).set_color("#ffe8d7"),on_click=lambda _: self.add(StarDialog(star="g")))
+		star_g = Button(Stars(radius=0.53).set_color("#ffe8d7"),on_click=lambda _: self.add(StarWindow(star="g")))
 		star_g.shift(RIGHT*2.6)
-		star_k = Button(Stars(radius=0.44).set_color("#ffac6f"),on_click=lambda _: self.add(StarDialog(star="k")))
+		star_k = Button(Stars(radius=0.44).set_color("#ffac6f"),on_click=lambda _: self.add(StarWindow(star="k")))
 		star_k.shift(RIGHT*4.2)
-		star_m = Button(Stars(radius=0.32).set_color("#ffa448"),on_click=lambda _: self.add(StarDialog(star="m")))
+		star_m = Button(Stars(radius=0.32).set_color("#ffa448"),on_click=lambda _: self.add(StarWindow(star="m")))
 		star_m.shift(RIGHT*5.6)
 		star_names = VGroup(Text(names).next_to(star[0][0], DOWN,buff=0.5) for star, names in zip([star_o, star_b, star_a, star_f, star_g, star_k, star_m], ["O", "B", "A", "F", "G", "K", "M"]))
 		self.add(background)
