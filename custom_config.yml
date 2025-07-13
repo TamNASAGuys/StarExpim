@@ -1,0 +1,15 @@
+camera:
+  resolution: (640, 360) # for my pc
+  background_color: "#000000"
+  fps: 30
+  background_opacity: 1.0
+
+text:
+  font: "NewComputerModern10"
+
+scene:
+  show_animation_progress: True
+
+window:
+  position_string: ORIGIN
+  size: (854, 480)
