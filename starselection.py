@@ -220,18 +220,35 @@ class ControlsExample(Scene):
 
 		self.textbox.set_value("Manim")
 
+class DragScroll(Group):
+	def __init__(self, **kwargs):
+		self.screen = Rectangle(width=FRAME_WIDTH,height=FRAME_HEIGHT)
+		self.window = Rectangle(width=FRAME_WIDTH/2,height=FRAME_HEIGHT/2, fill_color=GREY_C, fill_opacity=0.5)
+		self.some_mobject = VGroup(*[Rectangle(height=0.8,width=FRAME_WIDTH/4, fill_color=GREEN, fill_opacity=0.5) for _ in range(5)])
+		self.invisi = Exclusion(self.screen,self.window,fill_opacity=1)
+		self.window.add_mouse_drag_listner(self.drag)
+		super().__init__(self.some_mobject,self.window,self.invisi, **kwargs)
+	def drag(self, mob, event: dict[str,np.ndarray]) -> bool:
+		d_point = event["d_point"]
+		self.window.shift(d_point)
+		self.invisi = Exclusion(self.screen,self.window,fill_opacity=1)
+		self.remove(self.submobjects[-1])
+		self.add(self.invisi)
+		return False
+
 class Scrollable(Scene):
 	drag_to_pan = False
 	def construct(self):
 		screen = Rectangle(width=FRAME_WIDTH,height=FRAME_HEIGHT)
-		window = Rectangle(width=FRAME_WIDTH/2,height=FRAME_HEIGHT/2, fill_color=RED, fill_opacity=0.5)
+		window = Rectangle(width=FRAME_WIDTH/2,height=FRAME_HEIGHT/2, fill_color=GREY_C, fill_opacity=0.5)
 		some_mobject = VGroup(*[Rectangle(height=0.8,width=FRAME_WIDTH/4, fill_color=GREEN, fill_opacity=0.5) for _ in range(5)])
 		text = VGroup(Text("Some Text") for i in range(5))
 		some_mobject.arrange(UP)
 		text.arrange(UP)
-		e = Exclusion(screen,window)
+		e = Difference(screen,window)
 		e.set_color(color=BLACK)
-		e.set_fill(opacity=0)
+		#e.set_fill(opacity=1)
 		e.set_stroke(width=0)
-		self.add(some_mobject,e,window)
-		self.embed()
+		a = DragScroll()
+		self.add(a)
+		#self.embed()
